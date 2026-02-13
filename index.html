@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="login-container">
+    <section class="login-panel">
+      <div class="logo" aria-label="Brand logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="14" cy="14" r="14" fill="#5865f2"></circle>
+          <path d="M8 14h12M14 8v12" stroke="#fff" stroke-width="2" stroke-linecap="round"></path>
+        </svg>
+        <strong>Leagues of Code</strong>
+      </div>
+
+      <div class="form-wrapper">
+        <p class="welcome-text">Welcome back</p>
+        <h1 class="form-title">Log in to your account</h1>
+
+        <form id="loginForm" novalidate>
+          <div class="input-group">
+            <label for="email">Email</label>
+            <div class="input-wrapper">
+              <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+            </div>
+            <small class="error" id="emailError"></small>
+          </div>
+
+          <div class="input-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+              <input id="password" name="password" type="password" placeholder="Enter password" autocomplete="current-password" minlength="6" required>
+              <button type="button" class="toggle-password" id="togglePassword" aria-label="Show password">Show</button>
+            </div>
+            <small class="error" id="passwordError"></small>
+          </div>
+
+          <button type="submit" class="create-account-btn">Log In</button>
+        </form>
+
+        <div class="forgot-password">
+          <a href="#">Forgot password?</a>
+        </div>
+
+        <p class="status" id="statusMessage" aria-live="polite"></p>
+
+        <div class="terms">
+          <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a> apply
+        </div>
+      </div>
+    </section>
+
+    <section class="welcome-panel">
+      <h2>Welcome back!</h2>
+      <p>Let's continue the journey with Leagues of Code. Start building your future today and become the next generation of innovator.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
