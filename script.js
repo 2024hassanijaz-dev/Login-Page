@@ -1,3 +1,5 @@
+// Main JavaScript for the login page.
+// Handles password visibility toggle and client-side form validation feedback.
 const form = document.getElementById("loginForm");
 const email = document.getElementById("email");
 const password = document.getElementById("password");
@@ -7,9 +9,11 @@ const passwordError = document.getElementById("passwordError");
 const statusMessage = document.getElementById("statusMessage");
 
 function validateEmail(value) {
+  // Basic email format check for immediate user feedback.
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+// Show/Hide password button behavior.
 togglePassword.addEventListener("click", () => {
   const isPassword = password.type === "password";
   password.type = isPassword ? "text" : "password";
@@ -17,6 +21,7 @@ togglePassword.addEventListener("click", () => {
   togglePassword.setAttribute("aria-label", isPassword ? "Hide password" : "Show password");
 });
 
+// Validate form fields and display messages without a page reload.
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 

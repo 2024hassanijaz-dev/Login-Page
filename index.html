@@ -1,26 +1,26 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Main HTML file for the login page. Loads the page structure and links CSS/JS files. -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Two-panel page layout: left side form, right side welcome area. -->
   <main class="login-container">
+    <!-- Left panel: logo + login form + helper links/messages. -->
     <section class="login-panel">
       <div class="logo" aria-label="Brand logo">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="14" cy="14" r="14" fill="#5865f2"></circle>
-          <path d="M8 14h12M14 8v12" stroke="#fff" stroke-width="2" stroke-linecap="round"></path>
-        </svg>
-        <strong>Leagues of Code</strong>
+        <img src="loclogo.png" alt="Leagues of Code logo" class="logo-image">
       </div>
 
       <div class="form-wrapper">
         <p class="welcome-text">Welcome back</p>
         <h1 class="form-title">Log in to your account</h1>
 
+        <!-- Login form. Validation and submit behavior are handled in script.js. -->
         <form id="loginForm" novalidate>
           <div class="input-group">
             <label for="email">Email</label>
@@ -54,6 +54,7 @@
       </div>
     </section>
 
+    <!-- Right panel: marketing/welcome message with decorative background pattern. -->
     <section class="welcome-panel">
       <h2>Welcome back!</h2>
       <p>Let's continue the journey with Leagues of Code. Start building your future today and become the next generation of innovator.</p>
