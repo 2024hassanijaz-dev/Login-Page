@@ -9,6 +9,7 @@ This project includes:
 - A right panel with a welcome message and decorative blue background pattern
 - Client-side validation for email and password
 - A password show/hide toggle
+- A demo authentication flow with a mock database layer
 - A custom logo image (`loclogo.png`)
 
 ## Tech Stack
@@ -39,7 +40,7 @@ No build tools or dependencies are required.
 - Password length validation (minimum 6 characters)
 - Inline error messages
 - Password visibility toggle
-- Demo success message on valid submit
+- Structured demo authentication flow (UI + auth layer separation)
 
 ## Customization
 
@@ -48,7 +49,35 @@ No build tools or dependencies are required.
 - Edit welcome/form text in `index.html`
 - Modify validation rules in `script.js`
 
+## Authentication Flow (Current Demo)
+
+`index.html` uses `novalidate`, so all validation/messages come from `script.js`.
+
+Current login flow in `script.js`:
+1. Validate email/password format on submit.
+2. Call `authenticateUsingDatabase(email, password)`.
+3. `authenticateUsingDatabase` uses `demoDatabase` methods:
+   - `connect()`
+   - `findUserByEmail(email)`
+   - `verifyPassword(user, inputPassword)`
+4. Show result:
+   - `not_found` -> "User does not exist."
+   - `wrong_password` -> "Incorrect password."
+   - `success` -> "Login successful (demo only)."
+
+Important: `findUserByEmail` currently checks an empty `usersTable` array on purpose, so no real users exist yet.
+
+## Backend Integration Notes
+
+When real backend/data is ready, keep the UI code and replace only auth/data access:
+
+1. Replace `demoDatabase.connect()` with your real connection or remove it if your API handles connection server-side.
+2. Replace `findUserByEmail` and `verifyPassword` with API calls (recommended) or backend service calls.
+3. Keep password verification on the server with hashed passwords (do not verify plaintext on the client).
+4. Update success handling to store auth state (token/cookie/session) and redirect as needed.
+5. Keep the `reason` mapping (`not_found`, `wrong_password`) or map backend error codes to these UI messages.
+
 ## Notes
 
-- Current login action is demo-only and does not connect to a backend.
-- To use real authentication, replace the submit handler logic in `script.js` with an API request.
+- This project is front-end only right now.
+- Demo auth logic exists to make backend integration easier later without rewriting form UI behavior.

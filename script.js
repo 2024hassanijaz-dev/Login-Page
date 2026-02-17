@@ -8,9 +8,48 @@ const emailError = document.getElementById("emailError");
 const passwordError = document.getElementById("passwordError");
 const statusMessage = document.getElementById("statusMessage");
 
+// Demo database layer (no real DB connection yet).
+// Replace these methods with real backend/API calls later.
+const demoDatabase = {
+  async connect() {
+    // Simulate async DB connection.
+    return { ok: true };
+  },
+
+  async findUserByEmail(email) {
+    // Simulate a users table lookup. Empty for now on purpose.
+    const usersTable = [];
+    return usersTable.find((user) => user.email.toLowerCase() === email.toLowerCase()) || null;
+  },
+
+  async verifyPassword(user, inputPassword) {
+    // Simulate password check (real apps should verify server-side with hashing).
+    return user.password === inputPassword;
+  },
+};
+
 function validateEmail(value) {
   // Basic email format check for immediate user feedback.
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+async function authenticateUsingDatabase(inputEmail, inputPassword) {
+  // Single auth entry point.
+  // Later you can replace this function body with an API call like:
+  // POST /login { email, password }
+  await demoDatabase.connect();
+  const user = await demoDatabase.findUserByEmail(inputEmail);
+
+  if (!user) {
+    return { ok: false, reason: "not_found" };
+  }
+
+  const isPasswordValid = await demoDatabase.verifyPassword(user, inputPassword);
+  if (!isPasswordValid) {
+    return { ok: false, reason: "wrong_password" };
+  }
+
+  return { ok: true, reason: "success" };
 }
 
 // Show/Hide password button behavior.
@@ -22,7 +61,7 @@ togglePassword.addEventListener("click", () => {
 });
 
 // Validate form fields and display messages without a page reload.
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   let valid = true;
@@ -47,6 +86,19 @@ form.addEventListener("submit", (event) => {
   }
 
   if (!valid) {
+    return;
+  }
+
+  // Authentication is separated from UI so backend integration stays isolated.
+  const authResult = await authenticateUsingDatabase(email.value.trim(), password.value);
+
+  if (!authResult.ok) {
+    // Map auth outcomes to field-level messages for clearer feedback.
+    if (authResult.reason === "not_found") {
+      emailError.textContent = "User does not exist.";
+    } else if (authResult.reason === "wrong_password") {
+      passwordError.textContent = "Incorrect password.";
+    }
     return;
   }
 
